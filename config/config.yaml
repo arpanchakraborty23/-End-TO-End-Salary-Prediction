@@ -1,0 +1,7 @@
+artifacts_root: artifacts
+
+Data_ingestion:
+  dir: artifacts/Data_ingetion
+  train_data: artifacts/Data_ingetion/train.csv
+  test_data: artifacts/Data_ingetion/test.csv
+  raw_data: artifacts/Data_ingetion/raw.csv

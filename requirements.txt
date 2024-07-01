@@ -1,0 +1,18 @@
+pandas
+numpy
+scipy
+scikit-learn
+xgboost
+matplotlib
+seaborn
+ipykernel
+imblearn
+pymongo
+kneed
+python-dotenv
+ensure
+pyyaml
+python-box
+dvc
+
+-e .

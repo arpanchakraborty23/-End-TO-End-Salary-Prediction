@@ -1,0 +1,11 @@
+stages: 
+  DataIngestion:
+    cmd: python src\pipline\TrainPipline.py
+    deps:
+      - config\config.yaml
+      - src\pipline\TrainPipline.py
+
+    outs:
+    - train_data: artifacts\Data_ingetion\train.csv
+    - test_data: artifacts\Data_ingetion\test.csv
+    - raw_data: artifacts\Data_ingetion\raw.csv
