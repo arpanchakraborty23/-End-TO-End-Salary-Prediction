@@ -21,16 +21,26 @@ class DataIngetion:
         logging.info('Data Ingestion has started' )
 
     def initiate_data_ingestion(self):
+
+        '''
+        Method: initiate_data_ingestion
+        Discription: This method ingested data into data pipline
+
+        output: train_csv and test csv raw csv
+
+        version: 1.1
+        '''
         try:
-            ## Data collect from MongoDB
+            # Data collect from MongoDB
             # df=data_from_db(url=os.getenv('url'),
             #                 db=os.getenv('db'),
             #                 collection=os.getenv('collection'))
             
-            df=pd.read_csv('data//clean-data.csv')
+            df=pd.read_csv('data\clean-data.csv')
             
             
             logging.info(f'Data shape {df.shape} , columns: {df.columns} Null values: {df.isna().sum()}')
+            df=df.drop('Unnamed: 0',axis=1) if 'Unnamed: 0' in df.columns else df
 
             
             os.makedirs(os.path.dirname(self.config.train_data), exist_ok=True)
@@ -38,12 +48,12 @@ class DataIngetion:
 
 
             # split data into test and train data 
-            train_data,test_data=train_test_split(df,train_size=0.30,random_state=45)
+            train_data,test_data=train_test_split(df,train_size=0.30,shuffle=True,random_state=45)
 
             train_data.to_csv(self.config.train_data)
 
             test_data.to_csv(self.config.test_data)
-            
+            print(train_data.head())
 
             
             return (

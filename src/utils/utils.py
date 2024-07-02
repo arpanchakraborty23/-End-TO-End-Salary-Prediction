@@ -1,5 +1,6 @@
 import os,sys
 import yaml
+import pickle
 import pymongo
 import pandas as pd
 from ensure import ensure_annotations
@@ -44,7 +45,11 @@ def data_from_db(url,db,collection):
 
         df=pd.DataFrame(data)
 
-        df.drop(columns=['_id','Unnamed: 0'],axis=1,inplace=True)
+        if 'Unnamed: 0' in df.columns:
+            df.drop(columns=['_id','Unnamed: 0'],axis=1,inplace=True)
+        else:
+            df.drop(columns=['_id'],axis=1,inplace=True)
+
 
         print(df.head())
 
@@ -55,3 +60,7 @@ def data_from_db(url,db,collection):
     except Exception as e:
         logging.info(str(e))
         raise CustomException(sys,e)
+    
+def save_obj(file_path,obj):
+    with open(file_path,'wb') as f:
+        pickle.dump(obj,f)
