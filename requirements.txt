@@ -14,5 +14,6 @@ ensure
 pyyaml
 python-box
 dvc
+Falsk
 
 -e .

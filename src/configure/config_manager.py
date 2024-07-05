@@ -2,7 +2,7 @@ from src.logging.logger import logging
 from src.exception.exception import CustomException
 from src.constant.ymal_path import config_file_path,parsms_file_path
 from src.utils.utils import read_yaml,create_dir
-from entity.entity import DataIngestionCongfig,DataTransformationConfig
+from entity.entity import DataIngestionCongfig,DataTransformationConfig,ModelTrainConfig,PredictionConfig
 
 import os,sys
 
@@ -54,4 +54,39 @@ class ConfigMnager:
             raise CustomException(sys,e)
 
     def get_model_trainer_config(self):
-        pass
+        try:
+            config=self.config.Model_Train
+            create_dir([config.dir])
+
+            model_train_config=ModelTrainConfig(
+                dir=config.dir,
+                train_arr=config.train_arr,
+                test_arr=config.test_arr,
+                model=config.model
+
+            )
+            return model_train_config
+
+        except Exception as e:
+            logging.info(str(e))
+            raise CustomException(sys,e)
+        
+    def get_prediction_config(self):
+        try:
+
+            config=self.config.Prediction_pipline
+            
+
+            data_transformation_config=PredictionConfig(
+                model=config.model,
+                preprocess_obj=config.preprocess_obj,
+                prediction_file_name=config.prediction_file_name,
+                prediction_output_dirname=config.prediction_output_dirname
+            )
+            return data_transformation_config
+        except Exception as e:
+            logging.info(f'error {str(e)}')
+            raise CustomException(sys,e)
+
+    
+    

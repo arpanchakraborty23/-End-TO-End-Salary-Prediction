@@ -1,6 +1,7 @@
 import sys
 from src.components.DataIngestion import DataIngetion
 from src.components.DataTransformation import DataTransformation
+from src.components.model_train import ModelTrain
 from src.exception.exception import CustomException
 from src.logging.logger import logging
 
@@ -21,6 +22,13 @@ class TrainPipline:
             train_arr,test_arr=transormation.initate_data_transformation(train_data=train_data,test_data=test_data)
 
             logging.info('============== Data Transformation Completed ================')
+            
+            logging.info('<<<<<<<<<<<<<<<< Model Train >>>>>>>>>>>>>>>>>>')
+          
+            model_train=ModelTrain()
+            print(model_train.initate_model_train())
+
+            logging.info('<<<<<<<<<<<<<<<< Model Train complete >>>>>>>>>>>>>>>>>>')
 
         except Exception as e:
             logging.info(str(e))
